@@ -1,16 +1,14 @@
-// resolvers.js
 const BlogPost = require("./models/BlogPost");
 const nodemailer = require("nodemailer");
 
 const otps = {};
-const otpExpiry = {}; // Store OTP expiry times
+const otpExpiry = {};
 
-// Set up nodemailer transporter
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "raycabackend@gmail.com",
-    pass: "wtydiixrhnavusod", // Ensure you use environment variables for sensitive information
+    pass: "wtydiixrhnavusod",
   },
 });
 
@@ -27,7 +25,7 @@ const resolvers = {
     sendOTP: async (parent, { email }) => {
       const otp = Math.floor(100000 + Math.random() * 900000);
       otps[email] = otp;
-      otpExpiry[email] = Date.now() + 300000; // OTP valid for 5 minutes (300,000 milliseconds)
+      otpExpiry[email] = Date.now() + 300000;
 
       const mailOptions = {
         from: "athreyblog@gmail.com",
@@ -37,14 +35,16 @@ const resolvers = {
       };
 
       await transporter.sendMail(mailOptions);
+      console.log(`OTP sent to ${email}: ${otp}`);
       return { message: "OTP sent" };
     },
     verifyOTP: async (parent, { postId, email, otp, author, content }) => {
       const currentTime = Date.now();
+      const storedOtp = String(otps[email]);
+      const providedOtp = String(otp).trim();
 
-      // Check if OTP exists and is still valid
       if (otps[email] && otpExpiry[email] > currentTime) {
-        if (otps[email] === otp) {
+        if (storedOtp === providedOtp) {
           const post = await BlogPost.findById(postId);
           if (!post) {
             throw new Error("Post not found");
@@ -60,18 +60,21 @@ const resolvers = {
           post.comments.push(newComment);
           await post.save();
 
-          // Clear OTP after verification
           delete otps[email];
           delete otpExpiry[email];
 
+          console.log(`OTP verified, comment added for ${email}`);
           return { message: "Comment added" };
         } else {
+          console.log("Invalid OTP provided");
           throw new Error("Invalid OTP");
         }
       } else {
+        console.log("OTP has expired or does not exist");
         throw new Error("OTP has expired or does not exist");
       }
     },
+
     addBlogPost: async (parent, { title, content, author }) => {
       const newBlogPost = new BlogPost({
         title,

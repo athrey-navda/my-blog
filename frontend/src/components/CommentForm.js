@@ -47,19 +47,22 @@ const CommentForm = ({ postId }) => {
   };
 
   const handleVerifyOTP = async () => {
-    const response = await verifyOTP({
-      variables: { postId, email, otp, author, content },
-    });
-    if (response.data.verifyOTP.message === "Comment added") {
-      alert("Comment successfully added!");
-      // Reset form
-      setAuthor("");
-      setEmail("");
-      setContent("");
-      setOtp("");
-      setOtpSent(false);
-    } else {
-      alert("Invalid OTP");
+    try {
+      const response = await verifyOTP({
+        variables: { postId, email, otp, author, content },
+      });
+
+      if (response.data.verifyOTP.message === "Comment added") {
+        alert("Comment successfully added!");
+        setAuthor("");
+        setEmail("");
+        setContent("");
+        setOtp("");
+        setOtpSent(false);
+      }
+    } catch (error) {
+      alert(error.message || "Error occurred while verifying OTP");
+      console.error("Error in OTP verification:", error);
     }
   };
 

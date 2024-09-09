@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import CommentForm from "./CommentForm"; // Import the CommentForm component
+import CommentForm from "./CommentForm";
 
 const GET_BLOGPOST_BY_ID = gql`
   query GetBlogPostById($id: ID!) {
@@ -21,7 +21,7 @@ const GET_BLOGPOST_BY_ID = gql`
 `;
 
 const BlogPost = () => {
-  const { id } = useParams(); // Get the blog post ID from the URL
+  const { id } = useParams();
   const { loading, error, data } = useQuery(GET_BLOGPOST_BY_ID, {
     variables: { id },
   });
@@ -60,7 +60,6 @@ const BlogPost = () => {
         )}
       </div>
 
-      {/* Add the Comment Form */}
       <CommentForm postId={id} />
     </div>
   );
