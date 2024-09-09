@@ -1,21 +1,42 @@
+// schema.js
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+  type Comment {
+    author: String!
+    email: String!
+    content: String!
+    date: String!
+  }
+
   type BlogPost {
     id: ID!
     title: String!
     content: String!
     author: String!
     date: String!
+    comments: [Comment!]!
+  }
+
+  type Response {
+    message: String!
   }
 
   type Query {
-    getBlogPosts: [BlogPost]
-    getBlogPost(id: ID!): BlogPost
+    getBlogPosts: [BlogPost!]!
+    getBlogPostById(id: ID!): BlogPost
   }
 
   type Mutation {
-    addBlogPost(title: String!, content: String!, author: String!): BlogPost
+    sendOTP(email: String!): Response
+    verifyOTP(
+      postId: ID!
+      email: String!
+      otp: String!
+      author: String!
+      content: String!
+    ): Response
+    addBlogPost(title: String!, content: String!, author: String!): BlogPost!
   }
 `;
 
