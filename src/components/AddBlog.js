@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 
 const ADD_BLOG_POST = gql`
   mutation AddBlogPost($title: String!, $content: String!, $author: String!) {
@@ -17,18 +18,32 @@ const AddBlog = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
-
   const [addBlogPost] = useMutation(ADD_BLOG_POST);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("authToken")) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = localStorage.getItem("authToken");
+
     try {
       const { data } = await addBlogPost({
         variables: { title, content, author },
+        context: {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       });
 
       console.log("Blog post added:", data.addBlogPost);
+      navigate("/");
     } catch (error) {
       console.error("Error adding blog post:", error);
     }
