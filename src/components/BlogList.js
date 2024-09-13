@@ -11,6 +11,7 @@ import Grid from "@mui/material/Grid2";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
+import { Container } from "@mui/material";
 
 const GET_BLOGPOSTS = gql`
   query GetBlogPosts {
@@ -102,7 +103,15 @@ const BlogList = () => {
 
   const isAuthenticated = !!localStorage.getItem("authToken");
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <Container maxWidth="md" sx={{ mt: 24, mb: 4 }}>
+        <p>
+          Please wait, as it may take 50-60 seconds to retrieve data due to
+          Render's delay after periods of inactivity.
+        </p>
+      </Container>
+    );
   if (error) return <p>Error: {error.message}</p>;
 
   return (
