@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
-import CommentForm from "./CommentForm";
+// import CommentForm from "./CommentForm";
 import { Card, CardContent } from "@mui/material";
 
 const GET_BLOGPOST_BY_ID = gql`
@@ -30,7 +30,7 @@ const GET_BLOGPOST_BY_ID = gql`
 const StyledTypography = styled(Typography)({
   display: "-webkit-box",
   WebkitBoxOrient: "vertical",
-  WebkitLineClamp: 3,
+  WebkitLineClamp: 30,
   overflow: "hidden",
   textOverflow: "ellipsis",
 });
@@ -141,7 +141,7 @@ const BlogPost = () => {
         <Author author={author} date={date} />
       </SyledCard>
 
-      <Box sx={{ padding: 2 }}>
+      {/* <Box sx={{ padding: 2 }}>
         <Typography variant="h6" gutterBottom>
           Comments:
         </Typography>
@@ -170,7 +170,7 @@ const BlogPost = () => {
           <Typography variant="body2">No comments yet.</Typography>
         )}
         <CommentForm postId={id} />
-      </Box>
+      </Box> */}
     </Box>
   );
 };
