@@ -8,7 +8,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 // import CommentForm from "./CommentForm";
-import { Card, CardContent } from "@mui/material";
+import { Card, CardContent, Container } from "@mui/material";
 
 const GET_BLOGPOST_BY_ID = gql`
   query GetBlogPostById($id: ID!) {
@@ -112,16 +112,7 @@ const BlogPost = () => {
   const { title, content, author, date, comments } = data.getBlogPostById;
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        gap: 2,
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "16px",
-      }}
-    >
+    <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
       <SyledCard variant="outlined" tabIndex={0} className={""}>
         <CardMedia
           component="img"
@@ -171,7 +162,7 @@ const BlogPost = () => {
         )}
         <CommentForm postId={id} />
       </Box> */}
-    </Box>
+    </Container>
   );
 };
 
