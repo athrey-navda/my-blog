@@ -80,7 +80,7 @@ function Author({ author, date }) {
           alignItems: "center",
         }}
       >
-        <AvatarGroup max={1}>
+        <AvatarGroup max={2}>
           <Avatar
             alt={author}
             src="https://portfolio-rho-swart.vercel.app/images/homepage/herosectionImage.jpg"

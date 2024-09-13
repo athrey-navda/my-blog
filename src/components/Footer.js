@@ -87,7 +87,7 @@ export default function Footer() {
             <Link
               color="text.secondary"
               variant="body2"
-              href="https://github.com/mui/material-ui/tree/v6.1.0/docs/data/material/getting-started/templates/dashboard"
+              href="https://github.com/mui/material-ui/tree/v6.1.0/docs/data/material/getting-started/templates/blog"
             >
               Material UI Blog Template
             </Link>

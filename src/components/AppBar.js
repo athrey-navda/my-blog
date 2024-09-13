@@ -96,7 +96,7 @@ export default function AppAppBar({ mode, toggleColorMode }) {
             }}
           ></Box>
           <Box sx={{ display: "flex", gap: 1 }}>
-            <Button
+            <div
               variant="text"
               color="info"
               size="small"
@@ -107,7 +107,7 @@ export default function AppAppBar({ mode, toggleColorMode }) {
                 mode={mode}
                 toggleColorMode={toggleColorMode}
               />
-            </Button>
+            </div>
           </Box>
           <Box sx={{ display: { sm: "flex", md: "none" } }}>
             <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
@@ -142,13 +142,13 @@ export default function AppAppBar({ mode, toggleColorMode }) {
                 >
                   Portfolio
                 </MenuItem>
-                <MenuItem>
+                <div>
                   <ToggleColorMode
                     data-screenshot="toggle-mode"
                     mode={mode}
                     toggleColorMode={toggleColorMode}
                   />
-                </MenuItem>
+                </div>
               </Box>
             </Drawer>
           </Box>
