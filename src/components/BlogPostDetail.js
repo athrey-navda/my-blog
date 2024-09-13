@@ -106,13 +106,21 @@ const BlogPost = () => {
     variables: { id },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <Container maxWidth="md" sx={{ mt: 24, mb: 4 }}>
+        <p>
+          Please wait, as it may take 50-60 seconds to retrieve data due to
+          Render's delay after periods of inactivity.
+        </p>
+      </Container>
+    );
   if (error) return <p>Error: {error.message}</p>;
 
   const { title, content, author, date, comments } = data.getBlogPostById;
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+    <Container maxWidth="md" sx={{ mt: 24, mb: 4 }}>
       <SyledCard variant="outlined" tabIndex={0} className={""}>
         <CardMedia
           component="img"
