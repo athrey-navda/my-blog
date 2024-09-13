@@ -30,7 +30,7 @@ const GET_BLOGPOST_BY_ID = gql`
 const StyledTypography = styled(Typography)({
   display: "-webkit-box",
   WebkitBoxOrient: "vertical",
-  WebkitLineClamp: 30,
+  WebkitLineClamp: 100,
   overflow: "hidden",
   textOverflow: "ellipsis",
 });
