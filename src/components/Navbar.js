@@ -32,7 +32,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   font: "bold",
 }));
 
-export default function AppAppBar({ mode, toggleColorMode }) {
+export default function Navbar({ mode, toggleColorMode }) {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -41,7 +41,7 @@ export default function AppAppBar({ mode, toggleColorMode }) {
 
   return (
     <AppBar
-      position="fixed"
+      position="relative"
       sx={{
         boxShadow: 0,
         bgcolor: "transparent",
@@ -158,7 +158,7 @@ export default function AppAppBar({ mode, toggleColorMode }) {
   );
 }
 
-AppAppBar.propTypes = {
+Navbar.propTypes = {
   mode: PropTypes.oneOf(["dark", "light"]).isRequired,
   toggleColorMode: PropTypes.func.isRequired,
 };

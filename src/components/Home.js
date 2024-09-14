@@ -8,7 +8,7 @@ export default function Home() {
       <Container
         maxWidth="lg"
         component="main"
-        sx={{ display: "flex", flexDirection: "column", my: 24, gap: 4 }}
+        sx={{ display: "flex", flexDirection: "column", my: 4, gap: 4 }}
       >
         <BlogList />
       </Container>

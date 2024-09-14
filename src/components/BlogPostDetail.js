@@ -120,7 +120,7 @@ const BlogPost = () => {
   const { title, content, author, date, comments } = data.getBlogPostById;
 
   return (
-    <Container maxWidth="md" sx={{ mt: 24, mb: 4 }}>
+    <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
       <SyledCard variant="outlined" tabIndex={0} className={""}>
         <CardMedia
           component="img"

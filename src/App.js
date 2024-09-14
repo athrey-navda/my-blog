@@ -7,7 +7,7 @@ import Home from "./components/Home";
 import Footer from "./components/Footer";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import AppAppBar from "./components/AppBar";
+import Navbar from "./components/Navbar";
 
 function App() {
   const [mode, setMode] = React.useState("light");
@@ -35,7 +35,7 @@ function App() {
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline enableColorScheme />
         <Router>
-          <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
+          <Navbar mode={mode} toggleColorMode={toggleColorMode} />
 
           <Routes>
             <Route path="/" element={<Home />} />
