@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
+import { TextField, Button, FormControl, Typography, Box } from "@mui/material";
 
 const SEND_OTP = gql`
   mutation SendOTP($email: String!) {
@@ -59,6 +60,7 @@ const CommentForm = ({ postId }) => {
         setContent("");
         setOtp("");
         setOtpSent(false);
+        window.location.reload();
       }
     } catch (error) {
       alert(error.message || "Error occurred while verifying OTP");
@@ -67,40 +69,75 @@ const CommentForm = ({ postId }) => {
   };
 
   return (
-    <div>
-      <h3>Add a Comment</h3>
-      <input
-        type="text"
-        placeholder="Author"
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <textarea
-        placeholder="Comment"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      />
+    <Box sx={{ maxWidth: 400, margin: "0 auto" }}>
+      <Typography variant="h5" gutterBottom>
+        Add a Comment
+      </Typography>
+      <FormControl fullWidth margin="normal">
+        <TextField
+          label="Author"
+          variant="outlined"
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+          fullWidth
+        />
+      </FormControl>
+      <FormControl fullWidth margin="normal">
+        <TextField
+          label="Email"
+          type="email"
+          variant="outlined"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          fullWidth
+        />
+      </FormControl>
+      <FormControl fullWidth margin="normal">
+        <TextField
+          label="Comment"
+          variant="outlined"
+          multiline
+          rows={4}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          fullWidth
+        />
+      </FormControl>
 
-      {otpSent ? (
-        <>
-          <input
-            type="text"
-            placeholder="Enter OTP"
+      {otpSent && (
+        <FormControl fullWidth margin="normal">
+          <TextField
+            label="Enter OTP"
+            variant="outlined"
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
+            fullWidth
           />
-          <button onClick={handleVerifyOTP}>Verify OTP & Post Comment</button>
-        </>
-      ) : (
-        <button onClick={handleSendOTP}>Send OTP</button>
+        </FormControl>
       )}
-    </div>
+
+      <Box mt={2}>
+        {otpSent ? (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleVerifyOTP}
+            fullWidth
+          >
+            Verify OTP & Post Comment
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSendOTP}
+            fullWidth
+          >
+            Authenticate
+          </Button>
+        )}
+      </Box>
+    </Box>
   );
 };
 

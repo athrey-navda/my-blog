@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
-// import CommentForm from "./CommentForm";
+import CommentForm from "./CommentForm";
 import { Card, CardContent, Container } from "@mui/material";
 
 const GET_BLOGPOST_BY_ID = gql`
@@ -140,7 +140,7 @@ const BlogPost = () => {
         <Author author={author} date={date} />
       </SyledCard>
 
-      {/* <Box sx={{ padding: 2 }}>
+      <Box sx={{ padding: 2 }}>
         <Typography variant="h6" gutterBottom>
           Comments:
         </Typography>
@@ -169,7 +169,7 @@ const BlogPost = () => {
           <Typography variant="body2">No comments yet.</Typography>
         )}
         <CommentForm postId={id} />
-      </Box> */}
+      </Box>
     </Container>
   );
 };
