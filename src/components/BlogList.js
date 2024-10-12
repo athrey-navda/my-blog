@@ -106,13 +106,13 @@ const BlogList = () => {
   if (loading)
     return (
       <Container maxWidth="md" sx={{ mt: 24, mb: 4 }}>
-        <p>
+        <div>
           Please wait, as it may take 50-60 seconds to retrieve data due to
           Render's delay after periods of inactivity.
-        </p>
+        </div>
       </Container>
     );
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>

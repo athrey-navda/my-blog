@@ -9,6 +9,7 @@ import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import CommentForm from "./CommentForm";
 import { Card, CardContent, Container } from "@mui/material";
+import DOMPurify from "dompurify";
 
 const GET_BLOGPOST_BY_ID = gql`
   query GetBlogPostById($id: ID!) {
@@ -26,14 +27,6 @@ const GET_BLOGPOST_BY_ID = gql`
     }
   }
 `;
-
-const StyledTypography = styled(Typography)({
-  display: "-webkit-box",
-  WebkitBoxOrient: "vertical",
-  WebkitLineClamp: 100,
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-});
 
 const SyledCard = styled(Card)(({ theme }) => ({
   display: "flex",
@@ -99,7 +92,6 @@ function Author({ author, date }) {
     </Box>
   );
 }
-
 const BlogPost = () => {
   const { id } = useParams();
   const { loading, error, data } = useQuery(GET_BLOGPOST_BY_ID, {
@@ -109,15 +101,16 @@ const BlogPost = () => {
   if (loading)
     return (
       <Container maxWidth="md" sx={{ mt: 24, mb: 4 }}>
-        <p>
+        <div>
           Please wait, as it may take 50-60 seconds to retrieve data due to
           Render's delay after periods of inactivity.
-        </p>
+        </div>
       </Container>
     );
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <div>Error: {error.message}</div>;
 
   const { title, content, author, date, comments } = data.getBlogPostById;
+  console.log(content);
 
   return (
     <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
@@ -133,9 +126,9 @@ const BlogPost = () => {
           <Typography gutterBottom variant="h4" component="div">
             {title}
           </Typography>
-          <StyledTypography variant="body1" color="text.secondary" gutterBottom>
-            {content}
-          </StyledTypography>
+          <div
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
+          />
         </SyledCardContent>
         <Author author={author} date={date} />
       </SyledCard>
