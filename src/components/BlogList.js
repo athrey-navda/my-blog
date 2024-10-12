@@ -124,42 +124,45 @@ const BlogList = () => {
         </Box>
       )}
       <Grid container spacing={2} columns={12}>
-        {data.getBlogPosts.map((post, index) => (
-          <Grid size={{ xs: 12, md: 6 }} key={post.id}>
-            <SyledCard variant="outlined" tabIndex={0} className={""}>
-              <CardMedia
-                component="img"
-                alt={post.title}
-                image={`https://picsum.photos/800/450?random=${index + 1}`}
-                aspect-ratio="16 / 9"
-                sx={{
-                  borderBottom: "1px solid",
-                  borderColor: "divider",
-                }}
-              />
-              <SyledCardContent>
-                <Typography gutterBottom variant="h6" component="div">
-                  {post.title}
-                </Typography>
-                <StyledTypography
-                  variant="body2"
-                  color="text.secondary"
-                  gutterBottom
-                >
-                  {post.content.substring(0, 100)}...
-                </StyledTypography>
-              </SyledCardContent>
-              <Author author={post.author} date={post.date} />
-              <Box sx={{ padding: 2 }}>
-                <Link to={`/post/${post.id}`}>
-                  <Button variant="outlined" color="primary">
-                    Read More
-                  </Button>
-                </Link>
-              </Box>
-            </SyledCard>
-          </Grid>
-        ))}
+        {data.getBlogPosts
+          .slice()
+          .reverse()
+          .map((post, index) => (
+            <Grid size={{ xs: 12, md: 6 }} key={post.id}>
+              <SyledCard variant="outlined" tabIndex={0} className={""}>
+                <CardMedia
+                  component="img"
+                  alt={post.title}
+                  image={`https://picsum.photos/800/450?random=${index + 1}`}
+                  aspect-ratio="16 / 9"
+                  sx={{
+                    borderBottom: "1px solid",
+                    borderColor: "divider",
+                  }}
+                />
+                <SyledCardContent>
+                  <Typography gutterBottom variant="h6" component="div">
+                    {post.title}
+                  </Typography>
+                  <StyledTypography
+                    variant="body2"
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    {post.content.substring(0, 100)}...
+                  </StyledTypography>
+                </SyledCardContent>
+                <Author author={post.author} date={post.date} />
+                <Box sx={{ padding: 2 }}>
+                  <Link to={`/post/${post.id}`}>
+                    <Button variant="outlined" color="primary">
+                      Read More
+                    </Button>
+                  </Link>
+                </Box>
+              </SyledCard>
+            </Grid>
+          ))}
       </Grid>
     </Box>
   );
