@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import { Container } from "@mui/material";
+import DOMPurify from "dompurify";
 
 const GET_BLOGPOSTS = gql`
   query GetBlogPosts {
@@ -149,7 +150,14 @@ const BlogList = () => {
                     color="text.secondary"
                     gutterBottom
                   >
-                    {post.content.substring(0, 100)}...
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(
+                          post.content.substring(0, 100)
+                        ),
+                      }}
+                    />
+                    ...
                   </StyledTypography>
                 </SyledCardContent>
                 <Author author={post.author} date={post.date} />
